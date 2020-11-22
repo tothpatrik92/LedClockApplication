@@ -32,9 +32,9 @@
 void LedInit(void);
 void LedDrive(APP_TIME time);
 void LeDriveSegments(APP_TIME time);
-void LeDriveSegment(APP_TIME time, uint8_t n);
-void LeDriveMux(uint8_t n);
-void LeDriveSevenSeg(APP_TIME time,uint8_t n);
+void LeDriveSegment(APP_TIME time);
+void LeDriveMux();
+void LeDriveSevenSeg(APP_TIME time);
 
 
 

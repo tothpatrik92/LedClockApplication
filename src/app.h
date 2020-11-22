@@ -11,7 +11,7 @@
 #include "inttypes.h"
 
 // APP macros
-#define APP_PERIOD_MS 1UL
+#define APP_PERIOD_MS 100UL
 
 
 

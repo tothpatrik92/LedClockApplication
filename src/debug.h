@@ -12,9 +12,10 @@
 #define DEBUG 1
 
 #if DEBUG
-#define DebugPrint(a) printf(a)
+#define DebugPrint(...) printf(__VA_ARGS__)
 #else
 #define DebugPrint(a)
 #endif
 
 #endif /* SRC_DEBUG_H_ */
+

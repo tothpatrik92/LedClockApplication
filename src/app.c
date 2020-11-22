@@ -8,12 +8,18 @@
 #include "app.h"
 #include "event.h"
 #include "led.h"
+#include "debug.h"
 
 void AppMain(void){
 
   APP_EVENT event;
-  event=EventGetAppState();
+
   APP_TIME time_hhmm;
+
+
+  while(1){
+
+  event=EventGetAppState();
   time_hhmm=AppGetTime();
 
   switch (event){
@@ -28,9 +34,10 @@ void AppMain(void){
     case app_event_illum_set:
       break;
     case app_event_idle:
-
       //em2
       break;
+  }
+
   }
 
 

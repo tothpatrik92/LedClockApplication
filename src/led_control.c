@@ -23,22 +23,23 @@ static uint8_t n;
 void LeDriveSegments(APP_TIME time){
 
 
-  LeDriveSegment(time, n);
+  LeDriveSegment(time);
+  DebugPrint("\n%d%d:%d%dseg:%d\n",time.h1,time.h0,time.m1,time.m0,n);
 
 
 }
 
-void LeDriveSegment(APP_TIME time, uint8_t n){
+void LeDriveSegment(APP_TIME time){
 
 
-  LeDriveMux(n);
-  LeDriveSevenSeg(time,n);
+  LeDriveMux();
+  LeDriveSevenSeg(time);
   n++;
   if((LED_NUM_OF_SEGMENTS-1) < n){
       n=0;
   }
 }
-void LeDriveMux(uint8_t n){
+void LeDriveMux(){
 
   switch(n){
     case 0:
@@ -71,7 +72,7 @@ void LeDriveMux(uint8_t n){
 
 }
 
-void LeDriveSevenSeg(APP_TIME time,uint8_t n){
+void LeDriveSevenSeg(APP_TIME time){
 
 
   uint8_t number;
@@ -83,11 +84,10 @@ void LeDriveSevenSeg(APP_TIME time,uint8_t n){
       //h0
       number=time.h0;
 
-  }\
+  }else if(2 == n){
+      //Here we do nothing since it's the dot
 
-  //Here we skip the dots, so number 2
-
-  else if(3 == n){
+  }else if(3 == n){
       //m1
       number=time.m1;
 

@@ -9,6 +9,9 @@
 #include "button.h"
 #include "illum.h"
 #include "retargetserial.h"
+#include "debug.h"
+#include "assert.h"
+
 int main(void)
 {
   /* Chip errata */
@@ -34,6 +37,8 @@ int main(void)
   while (1) {
 
       AppMain();
+      //never reach this point
+      assert(0);
   }
 }
 

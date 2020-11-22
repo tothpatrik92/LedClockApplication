@@ -64,7 +64,8 @@ src/main.o: ../src/main.c \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_usart.h \
  ../src/app.h ../src/event.h ../src/led.h ../src/button.h ../src/illum.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\common\drivers\retargetserial.h \
- c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\efr32mg12_brd4166a\config\retargetserialconfig.h
+ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\efr32mg12_brd4166a\config\retargetserialconfig.h \
+ ../src/debug.h
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\device\siliconlabs\efr32mg12p\include\em_device.h:
 
@@ -205,3 +206,5 @@ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\common\drivers\retargetserial.h:
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\efr32mg12_brd4166a\config\retargetserialconfig.h:
+
+../src/debug.h:

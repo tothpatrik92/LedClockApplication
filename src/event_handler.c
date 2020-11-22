@@ -5,6 +5,7 @@
  *      Author: patrik
  */
 #include "event.h"
+#include "debug.h"
 
 static uint32_t currTick;
 static uint32_t prevTick;
@@ -33,6 +34,7 @@ EVENT EventGetAppState(void){
   //if 1ms is elapsed, perform LED refreshing
   if(currTick!=prevTick){
       ret=event_timer_show;
+      DebugPrint("ret=event_timer_show;");
   }
 
   return ret;
