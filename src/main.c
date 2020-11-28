@@ -4,6 +4,7 @@
 #include "em_gpio.h"
 #include "em_usart.h"
 #include "em_emu.h"
+#include "em_rtcc.h"
 #include "app.h"
 #include "event.h"
 #include "led.h"
@@ -12,6 +13,10 @@
 #include "retargetserial.h"
 #include "debug.h"
 #include "assert.h"
+
+int start = -1;
+void rtccSetup(int start_time);
+
 
 int main(void)
 {
@@ -35,12 +40,42 @@ int main(void)
   ButtonInit();
   IllumInit();
 
+  char hour_time[] = "000000";
+  char *hour = &hour_time;//setCurrentTime(hour_time);
+  int start_time = (int)strtol(hour,NULL,16);
+  rtccSetup(start_time);
+
   /* Infinite loop */
-  while (1) {
+  while(1){
 
       AppMain();
       //never reach this point
       assert(0);
   }
 }
+void rtccSetup(int start_time)
+{
+  // Configure the RTCC settings
+  RTCC_Init_TypeDef rtcc = RTCC_INIT_DEFAULT;
+  rtcc.enable   = false;
+  rtcc.presc = rtccCntPresc_32768;
+  rtcc.cntMode = rtccCntModeCalendar;
+  rtcc.cntWrapOnCCV1 = true;
 
+  // Configure the compare settings
+  RTCC_CCChConf_TypeDef compare = RTCC_CH_INIT_COMPARE_DEFAULT;
+
+  // Turn on the clock for the RTCC
+  CMU_ClockEnable(cmuClock_HFLE, true);
+  CMU_ClockSelectSet(cmuClock_LFE, cmuSelect_LFXO);
+  CMU_ClockEnable(cmuClock_RTCC, true);
+
+  // Initialise RTCC with pre-defined settings
+  RTCC_Init(&rtcc);
+
+  // Set current time
+  RTCC_TimeSet(start_time);
+
+  // Start counter after all initialisations are complete
+  RTCC_Enable(true);
+}

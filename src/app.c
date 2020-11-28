@@ -9,6 +9,7 @@
 #include "event.h"
 #include "led.h"
 #include "debug.h"
+#include "em_rtcc.h"
 
 void AppMain(void){
 
@@ -22,8 +23,8 @@ void AppMain(void){
   event=EventGetAppState();
   time_hhmm=AppGetTime();
 
-
   switch (event){
+
     case app_event_timer_set:
       break;
     case app_event_timer_show:
@@ -45,6 +46,10 @@ void AppMain(void){
 
 APP_TIME AppGetTime(void){
 
-  APP_TIME dummy={1,2,3,8};
-  return dummy;
+  APP_TIME tmpTime;
+  tmpTime.m0=(RTCC->TIME&_RTCC_TIME_MINU_MASK)>>_RTCC_TIME_MINU_SHIFT;
+  tmpTime.m1=(RTCC->TIME&_RTCC_TIME_MINT_MASK)>>_RTCC_TIME_MINT_SHIFT;
+  tmpTime.h0=(RTCC->TIME&_RTCC_TIME_HOURU_MASK)>>_RTCC_TIME_HOURU_SHIFT;
+  tmpTime.h1=(RTCC->TIME&_RTCC_TIME_HOURT_MASK)>>_RTCC_TIME_HOURT_SHIFT;
+  return tmpTime;
 }

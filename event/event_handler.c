@@ -6,6 +6,7 @@
  */
 #include "event.h"
 #include "debug.h"
+#include "app.h"
 
 static uint32_t currTick;
 static uint32_t prevTick;
@@ -39,4 +40,9 @@ EVENT EventGetAppState(void){
 
   return ret;
 
+}
+APP_TIME EventGetTime(void){
+
+  APP_TIME tmp;
+  return tmp;
 }

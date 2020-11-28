@@ -3,6 +3,7 @@
 #include "debug.h"
 
 volatile uint32_t msTicks = 0;
+volatile uint32_t secTicks = 0;
 
 void EvInitTimer(uint32_t tickPeriod){
 
@@ -19,9 +20,10 @@ void EvInitTimer(uint32_t tickPeriod){
 
 void SysTick_Handler(void){
   msTicks++;
-  //if(msTicks>1000){
-  //    msTicks=0;
-  //}
+  if(msTicks>1000){
+      msTicks=0;
+      secTicks++;
+  }
 }
 
 uint32_t EvGetCurrTick(void){
