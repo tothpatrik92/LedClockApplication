@@ -1,6 +1,8 @@
 #include "em_timer.h"
 #include "em_cmu.h"
 #include "debug.h"
+#include "event.h"
+#include "app.h"
 
 volatile uint32_t msTicks = 0;
 volatile uint32_t secTicks = 0;
@@ -30,3 +32,5 @@ uint32_t EvGetCurrTick(void){
 
   return msTicks;
 }
+
+

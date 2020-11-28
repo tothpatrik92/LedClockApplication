@@ -5,6 +5,7 @@
  *      Author: patrik
  */
 #include "event.h"
+#include "button.h"
 #include "debug.h"
 #include "app.h"
 
@@ -27,16 +28,25 @@ void EventInit(uint32_t tickPeriod){
 
 EVENT EventGetAppState(void){
 
-  EVENT ret=event_idle;
+  EVENT ret;
+  uint32_t eventBtn;
 
   prevTick=currTick;
   currTick=EvGetCurrTick();
 
-  //if 1ms is elapsed, perform LED refreshing
-  if(currTick!=prevTick){
+  eventBtn=ButtonPressedState();
+  if(0x4000 == eventBtn){
+      //button 0 is pressed
+      ret=event_timer_set;
+  }else if(currTick!=prevTick){
       ret=event_timer_show;
-      DebugPrint("ret=event_timer_show;");
+      //DebugPrint("ret=event_timer_show;");
+  }else{
+
+      ret=event_idle;
   }
+
+
 
   return ret;
 
@@ -46,3 +56,4 @@ APP_TIME EventGetTime(void){
   APP_TIME tmp;
   return tmp;
 }
+

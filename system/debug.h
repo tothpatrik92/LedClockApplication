@@ -9,7 +9,7 @@
 #define SRC_DEBUG_H_
 #include "stdio.h"
 
-#define DEBUG 0
+#define DEBUG 1
 
 #if DEBUG
 #define DebugPrint(...) printf(__VA_ARGS__)

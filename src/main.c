@@ -40,7 +40,7 @@ int main(void)
   ButtonInit();
   IllumInit();
 
-  char hour_time[] = "000000";
+  char hour_time[] = "132654";
   char *hour = &hour_time;//setCurrentTime(hour_time);
   int start_time = (int)strtol(hour,NULL,16);
   rtccSetup(start_time);

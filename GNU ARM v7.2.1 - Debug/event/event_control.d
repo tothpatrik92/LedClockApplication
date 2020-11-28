@@ -59,7 +59,9 @@ event/event_control.o: ../event/event_control.c \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_bus.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_gpio.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_common.h \
- C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\system/debug.h
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\system/debug.h \
+ ../event/event.h \
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\src/app.h
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_timer.h:
 
@@ -182,3 +184,7 @@ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_common.h:
 
 C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\system/debug.h:
+
+../event/event.h:
+
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\src/app.h:

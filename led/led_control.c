@@ -25,7 +25,7 @@ void LeDriveSegments(APP_TIME ClockTime){
 
 
   LeDriveSegment(ClockTime);
-  DebugPrint("\n%d%d:%d%dseg:%d\n",ClockTime.h1,ClockTime.h0,ClockTime.m1,ClockTime.m0,n);
+  //DebugPrint("\n%d%d:%d%dseg:%d\n",ClockTime.h1,ClockTime.h0,ClockTime.m1,ClockTime.m0,n);
 
 
 }
