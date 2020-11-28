@@ -22,8 +22,8 @@ void AppMain(void){
   event=EventGetAppState();
   time_hhmm=AppGetTime();
 
-  switch (event){
 
+  switch (event){
     case app_event_timer_set:
       break;
     case app_event_timer_show:

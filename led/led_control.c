@@ -7,6 +7,7 @@
 #include "inttypes.h"
 #include "app.h"
 #include "led.h"
+#include "em_cmu.h"
 #include "em_gpio.h"
 #include "assert.h"
 #include "debug.h"
@@ -20,20 +21,20 @@ static uint8_t n;
 
 
 
-void LeDriveSegments(APP_TIME time){
+void LeDriveSegments(APP_TIME ClockTime){
 
 
-  LeDriveSegment(time);
-  DebugPrint("\n%d%d:%d%dseg:%d\n",time.h1,time.h0,time.m1,time.m0,n);
+  LeDriveSegment(ClockTime);
+  DebugPrint("\n%d%d:%d%dseg:%d\n",ClockTime.h1,ClockTime.h0,ClockTime.m1,ClockTime.m0,n);
 
 
 }
 
-void LeDriveSegment(APP_TIME time){
+void LeDriveSegment(APP_TIME ClockTime){
 
 
   LeDriveMux();
-  LeDriveSevenSeg(time);
+  LeDriveSevenSeg(ClockTime);
   n++;
   if((LED_NUM_OF_SEGMENTS-1) < n){
       n=0;
@@ -41,13 +42,14 @@ void LeDriveSegment(APP_TIME time){
 }
 void LeDriveMux(){
 
+
   switch(n){
-    case 0:
+    case 4:
       CLR(MUX_PORT_4051,MUX_PIN_A);
       CLR(MUX_PORT_4051,MUX_PIN_B);
       CLR(MUX_PORT_4051,MUX_PIN_C);
       break;
-    case 1:
+    case 3:
       SET(MUX_PORT_4051,MUX_PIN_A);
       CLR(MUX_PORT_4051,MUX_PIN_B);
       CLR(MUX_PORT_4051,MUX_PIN_C);
@@ -57,12 +59,12 @@ void LeDriveMux(){
       SET(MUX_PORT_4051,MUX_PIN_B);
       CLR(MUX_PORT_4051,MUX_PIN_C);
       break;
-    case 3:
+    case 1:
       SET(MUX_PORT_4051,MUX_PIN_A);
       SET(MUX_PORT_4051,MUX_PIN_B);
       CLR(MUX_PORT_4051,MUX_PIN_C);
       break;
-    case 4:
+    case 0:
       CLR(MUX_PORT_4051,MUX_PIN_A);
       CLR(MUX_PORT_4051,MUX_PIN_B);
       SET(MUX_PORT_4051,MUX_PIN_C);
@@ -72,33 +74,34 @@ void LeDriveMux(){
 
 }
 
-void LeDriveSevenSeg(APP_TIME time){
+void LeDriveSevenSeg(APP_TIME ClockTime){
 
 
   uint8_t number;
   if(0 == n){
       //h1
-      number=time.h1;
+      number=ClockTime.h1;
 
   }else if(1 == n){
       //h0
-      number=time.h0;
+      number=ClockTime.h0;
 
   }else if(2 == n){
       //Here we do nothing since it's the dot
 
   }else if(3 == n){
       //m1
-      number=time.m1;
+      number=ClockTime.m1;
 
   }else if(4 == n){
       //m0
-      number=time.m0;
+      number=ClockTime.m0;
   }
   else{
       DebugPrint("Invaild number of segment. Must be 0 to 4");
       assert(0);
   }
+
 
   switch(number){
     case 0:
@@ -163,5 +166,21 @@ void LeDriveSevenSeg(APP_TIME time){
       break;
   }
 
+
+}
+
+void LeInitGPIO(void){
+
+
+  CMU_ClockEnable(cmuClock_GPIO, true);
+
+  GPIO_PinModeSet(MUX_PORT_4051, MUX_PIN_A, gpioModePushPull, 0);
+  GPIO_PinModeSet(MUX_PORT_4051, MUX_PIN_B, gpioModePushPull, 0);
+  GPIO_PinModeSet(MUX_PORT_4051, MUX_PIN_C, gpioModePushPull, 0);
+
+  GPIO_PinModeSet(SEVENSEG_PORT, SEVENSEG_PIN_A, gpioModePushPull, 0);
+  GPIO_PinModeSet(SEVENSEG_PORT, SEVENSEG_PIN_B, gpioModePushPull, 0);
+  GPIO_PinModeSet(SEVENSEG_PORT, SEVENSEG_PIN_C, gpioModePushPull, 0);
+  GPIO_PinModeSet(SEVENSEG_PORT, SEVENSEG_PIN_D, gpioModePushPull, 0);
 
 }

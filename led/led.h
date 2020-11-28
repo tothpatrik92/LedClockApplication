@@ -30,12 +30,12 @@
 
 
 void LedInit(void);
-void LedDrive(APP_TIME time);
-void LeDriveSegments(APP_TIME time);
-void LeDriveSegment(APP_TIME time);
+void LedDrive(APP_TIME ClockTime);
+void LeDriveSegments(APP_TIME ClockTime);
+void LeDriveSegment(APP_TIME ClockTime);
 void LeDriveMux();
-void LeDriveSevenSeg(APP_TIME time);
-
+void LeDriveSevenSeg(APP_TIME ClockTime);
+void LeInitGPIO(void);
 
 
 #endif /* SRC_LED_H_ */

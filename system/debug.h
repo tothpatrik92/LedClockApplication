@@ -9,12 +9,12 @@
 #define SRC_DEBUG_H_
 #include "stdio.h"
 
-#define DEBUG 1
+#define DEBUG 0
 
 #if DEBUG
 #define DebugPrint(...) printf(__VA_ARGS__)
 #else
-#define DebugPrint(a)
+#define DebugPrint(...) NULL
 #endif
 
 #endif /* SRC_DEBUG_H_ */

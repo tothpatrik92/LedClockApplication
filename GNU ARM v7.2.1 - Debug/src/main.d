@@ -62,10 +62,16 @@ src/main.o: ../src/main.c \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_common.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_gpio.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_usart.h \
- ../src/app.h ../src/event.h ../src/led.h ../src/button.h ../src/illum.h \
+ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_emu.h \
+ ../src/app.h \
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\event/event.h \
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\led/led.h \
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\src/app.h \
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\button/button.h \
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\illum/illum.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\common\drivers\retargetserial.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\efr32mg12_brd4166a\config\retargetserialconfig.h \
- ../src/debug.h
+ C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\system/debug.h
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\device\siliconlabs\efr32mg12p\include\em_device.h:
 
@@ -193,18 +199,22 @@ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_usart.h:
 
+c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_emu.h:
+
 ../src/app.h:
 
-../src/event.h:
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\event/event.h:
 
-../src/led.h:
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\led/led.h:
 
-../src/button.h:
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\src/app.h:
 
-../src/illum.h:
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\button/button.h:
+
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\illum/illum.h:
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\common\drivers\retargetserial.h:
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\hardware\kit\efr32mg12_brd4166a\config\retargetserialconfig.h:
 
-../src/debug.h:
+C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\system/debug.h:

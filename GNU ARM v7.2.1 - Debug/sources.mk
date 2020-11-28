@@ -17,6 +17,11 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 CMSIS/EFR32MG12P \
+button \
 emlib \
+event \
+illum \
+led \
+serial \
 src \
 

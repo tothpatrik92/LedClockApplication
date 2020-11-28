@@ -9,7 +9,12 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/subdir.mk
+-include serial/subdir.mk
+-include led/subdir.mk
+-include illum/subdir.mk
+-include event/subdir.mk
 -include emlib/subdir.mk
+-include button/subdir.mk
 -include CMSIS/EFR32MG12P/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -31,7 +36,7 @@ all: LedClockApplication.axf
 LedClockApplication.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GNU ARM C Linker'
-	arm-none-eabi-gcc -g3 -gdwarf-2 -mcpu=cortex-m4 -mthumb -T "LedClockApplication.ld" -Xlinker --gc-sections -Xlinker -Map="LedClockApplication.map" -mfpu=fpv4-sp-d16 -mfloat-abi=softfp --specs=nano.specs -o LedClockApplication.axf "./CMSIS/EFR32MG12P/startup_efr32mg12p.o" "./CMSIS/EFR32MG12P/system_efr32mg12p.o" "./emlib/em_cmu.o" "./emlib/em_core.o" "./emlib/em_emu.o" "./emlib/em_gpio.o" "./emlib/em_i2c.o" "./emlib/em_rtcc.o" "./emlib/em_system.o" "./emlib/em_timer.o" "./emlib/em_usart.o" "./src/app.o" "./src/button_control.o" "./src/button_handler.o" "./src/event_control.o" "./src/event_handler.o" "./src/illum_control.o" "./src/illum_handler.o" "./src/led_control.o" "./src/led_handler.o" "./src/main.o" "./src/retargetio.o" "./src/retargetserial.o" -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
+	arm-none-eabi-gcc -g3 -gdwarf-2 -mcpu=cortex-m4 -mthumb -T "LedClockApplication.ld" -Xlinker --gc-sections -Xlinker -Map="LedClockApplication.map" -mfpu=fpv4-sp-d16 -mfloat-abi=softfp --specs=nano.specs -o LedClockApplication.axf "./CMSIS/EFR32MG12P/startup_efr32mg12p.o" "./CMSIS/EFR32MG12P/system_efr32mg12p.o" "./button/button_control.o" "./button/button_handler.o" "./emlib/em_cmu.o" "./emlib/em_core.o" "./emlib/em_emu.o" "./emlib/em_gpio.o" "./emlib/em_i2c.o" "./emlib/em_rtcc.o" "./emlib/em_system.o" "./emlib/em_timer.o" "./emlib/em_usart.o" "./event/event_control.o" "./event/event_handler.o" "./illum/illum_control.o" "./illum/illum_handler.o" "./led/led_control.o" "./led/led_handler.o" "./serial/retargetio.o" "./serial/retargetserial.o" "./src/app.o" "./src/main.o" -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

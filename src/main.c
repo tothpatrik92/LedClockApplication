@@ -3,6 +3,7 @@
 #include "em_cmu.h"
 #include "em_gpio.h"
 #include "em_usart.h"
+#include "em_emu.h"
 #include "app.h"
 #include "event.h"
 #include "led.h"
@@ -16,7 +17,8 @@ int main(void)
 {
   /* Chip errata */
   CHIP_Init();
-
+  EMU_DCDCInit_TypeDef dcdcInit = EMU_DCDCINIT_DEFAULT;
+  EMU_DCDCInit(&dcdcInit);
   // Start the HFXO with safe default parameters
   CMU_HFXOInit_TypeDef hfxoInit = CMU_HFXOINIT_DEFAULT;
   CMU_HFXOInit(&hfxoInit);
