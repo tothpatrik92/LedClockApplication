@@ -35,6 +35,8 @@ uint32_t ButPressedState(void);
 void ButtonSetDigit(void);
 int8_t GetPressedButton(void);
 uint8_t IncrementDigit(BUTTON_DIGIT state);
-
+void BtnShowNumber(uint8_t digit,uint8_t value);
+void BtnClearBntState(void);
+void BtnResetSec(void);
 
 #endif /* SRC_BUTTON_H_ */

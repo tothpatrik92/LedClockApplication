@@ -82,9 +82,6 @@ uint8_t AppGetTimeDigit(uint8_t digit){
       break;
     default:
       ret = 0;
-
-      return ret;
-
   }
-
+  return ret;
 }

@@ -138,7 +138,12 @@ void BtnShowNumber(uint8_t digit,uint8_t value){
   LeSetLedDirect(value);
 
 }
-void BtnClearBntState(){
+void BtnClearBntState(void){
   CopyIntFlag=0;
   IntFlag=0;
+}
+void BtnResetSec(void){
+
+  RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_SECT_MASK));
+  RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_SECU_MASK));
 }

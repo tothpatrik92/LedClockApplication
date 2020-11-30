@@ -35,6 +35,8 @@ void ButtonSetDigit(void){
 
   }
   DigitState=digit0_InProgress;
+  BtnResetSec();
   BtnClearBntState();
+
 }
 
