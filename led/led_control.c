@@ -33,17 +33,17 @@ void LeDriveSegments(APP_TIME ClockTime){
 void LeDriveSegment(APP_TIME ClockTime){
 
 
-  LeDriveMux();
+  LeDriveMux(n);
   LeDriveSevenSeg(ClockTime);
   n++;
   if((LED_NUM_OF_SEGMENTS-1) < n){
       n=0;
   }
 }
-void LeDriveMux(){
+void LeDriveMux(uint8_t digit){
 
 
-  switch(n){
+  switch(digit){
     case 4:
       CLR(MUX_PORT_4051,MUX_PIN_A);
       CLR(MUX_PORT_4051,MUX_PIN_B);
@@ -102,7 +102,10 @@ void LeDriveSevenSeg(APP_TIME ClockTime){
       assert(0);
   }
 
+  LeSetLedDirect(number);
+}
 
+void LeSetLedDirect(uint8_t number){
   switch(number){
     case 0:
       CLR(SEVENSEG_PORT,SEVENSEG_PIN_A);
@@ -166,8 +169,9 @@ void LeDriveSevenSeg(APP_TIME ClockTime){
       break;
   }
 
-
 }
+
+
 
 void LeInitGPIO(void){
 

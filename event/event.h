@@ -11,11 +11,13 @@
 #include "inttypes.h"
 
 typedef enum{
-  event_timer_set   =0,
-  event_timer_show  =1,
-  event_illum_get   =2,
-  event_illum_set   =3,
-  event_idle        =4
+  event_timer_set=0,
+  event_timer_set_ongoing,
+  event_timer_set_done,
+  event_timer_show,
+  event_illum_get,
+  event_illum_set,
+  event_idle
 }EVENT;
 
 

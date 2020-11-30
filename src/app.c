@@ -26,47 +26,15 @@ void AppMain(void){
   time_hhmm=AppGetTime();
 
   switch (event){
-
     case app_event_timer_set:
-      NVIC_DisableIRQ(GPIO_EVEN_IRQn);
-      NVIC_DisableIRQ(GPIO_ODD_IRQn);
-      uint8_t btnCnt=0,dig=0;
-      while(GPIO_PinInGet(BUTTON0_PORT, BUTTON0_PIN) &&
-          4>dig){ //wait for a button0 press
-
-          while(GPIO_PinInGet(BUTTON1_PORT, BUTTON1_PIN)){
-              if(!GPIO_PinInGet(BUTTON0_PORT, BUTTON0_PIN)){
-
-                  if(0==dig){
-                      RTCC->TIME=0;
-                      RTCC->TIME|=(btnCnt<<_RTCC_TIME_HOURT_SHIFT);
-
-                  }else if(1==dig){
-                      RTCC->TIME|=(btnCnt<<_RTCC_TIME_HOURU_SHIFT);
-
-                  }else if(2==dig){
-                      RTCC->TIME|=(btnCnt<<_RTCC_TIME_MINT_SHIFT);
-
-                  }else if(3==dig){
-                      RTCC->TIME|=(btnCnt<<_RTCC_TIME_MINU_SHIFT);
-                  }
-
-                  dig++;
-                  while(!GPIO_PinInGet(BUTTON0_PORT, BUTTON0_PIN));
-                  btnCnt=0;
-
-                  if(4==dig){
-                      break;
-                  }
-              }
-          }
-          btnCnt++;
-          while(!GPIO_PinInGet(BUTTON1_PORT, BUTTON1_PIN));
+    case app_event_timer_set_done:
+    case app_event_timer_set_ongoing:
+      if(app_event_timer_set_done==event){
+          event=app_event_timer_show;
+      }else{
+          ButtonSetDigit();
       }
-      dig=0;
-      NVIC_EnableIRQ(GPIO_EVEN_IRQn);
-      NVIC_EnableIRQ(GPIO_ODD_IRQn);
-
+      event=app_event_timer_show;
       break;
     case app_event_timer_show:
       LedDrive(time_hhmm);
@@ -94,4 +62,29 @@ APP_TIME AppGetTime(void){
   tmpTime.h1=(RTCC->TIME&_RTCC_TIME_HOURT_MASK)>>_RTCC_TIME_HOURT_SHIFT;
 
   return tmpTime;
+}
+
+uint8_t AppGetTimeDigit(uint8_t digit){
+
+  uint8_t ret;
+  switch(digit){
+    case 0:
+      ret = ((RTCC->TIME&_RTCC_TIME_HOURT_MASK)>>_RTCC_TIME_HOURT_SHIFT);
+      break;
+    case 1:
+      ret = ((RTCC->TIME&_RTCC_TIME_HOURU_MASK)>>_RTCC_TIME_HOURU_SHIFT);
+      break;
+    case 2:
+      ret = ((RTCC->TIME&_RTCC_TIME_MINT_MASK)>>_RTCC_TIME_MINT_SHIFT);
+      break;
+    case 3:
+      ret = ((RTCC->TIME&_RTCC_TIME_MINU_MASK)>>_RTCC_TIME_MINU_SHIFT);
+      break;
+    default:
+      ret = 0;
+
+      return ret;
+
+  }
+
 }

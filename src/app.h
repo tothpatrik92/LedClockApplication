@@ -20,11 +20,13 @@
 
 
 typedef enum{
-  app_event_timer_set   =0,
-  app_event_timer_show  =1,
-  app_event_illum_get   =2,
-  app_event_illum_set   =3,
-  app_event_idle        =4
+  app_event_timer_set=0,
+  app_event_timer_set_ongoing,
+  app_event_timer_set_done,
+  app_event_timer_show,
+  app_event_illum_get,
+  app_event_illum_set,
+  app_event_idle
 }APP_EVENT;
 
 typedef struct{

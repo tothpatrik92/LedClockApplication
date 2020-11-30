@@ -18,7 +18,13 @@
 
 #define BUTTON0_INT_NUM BUTTON0_PIN
 #define BUTTON1_INT_NUM BUTTON1_PIN
-
+typedef enum{
+  digit0_InProgress=0,
+  digit1_InProgress,
+  digit2_InProgress,
+  digit3_InProgress,
+  digit3_Done,
+}BUTTON_DIGIT;
 void ButtonInit(void);
 void ButInit(uint8_t button0Port,
                 uint8_t button0Pin,
@@ -26,5 +32,9 @@ void ButInit(uint8_t button0Port,
                 uint8_t button1Pin);
 uint32_t ButtonPressedState(void);
 uint32_t ButPressedState(void);
+void ButtonSetDigit(void);
+int8_t GetPressedButton(void);
+uint8_t IncrementDigit(BUTTON_DIGIT state);
+
 
 #endif /* SRC_BUTTON_H_ */

@@ -33,9 +33,9 @@ void LedInit(void);
 void LedDrive(APP_TIME ClockTime);
 void LeDriveSegments(APP_TIME ClockTime);
 void LeDriveSegment(APP_TIME ClockTime);
-void LeDriveMux();
+void LeDriveMux(uint8_t digit);
 void LeDriveSevenSeg(APP_TIME ClockTime);
 void LeInitGPIO(void);
-
+void LeSetLedDirect(uint8_t number);
 
 #endif /* SRC_LED_H_ */

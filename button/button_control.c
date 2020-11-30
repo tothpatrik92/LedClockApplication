@@ -7,11 +7,14 @@
 #include "stdbool.h"
 #include "inttypes.h"
 #include "button.h"
+#include "app.h"
 #include "em_cmu.h"
 #include "em_gpio.h"
 #include "debug.h"
 
 volatile static uint32_t IntFlag;
+static uint32_t CopyIntFlag;
+
 void ButInit(uint8_t button0Port,
                 uint8_t button0Pin,
                 uint8_t button1Port,
@@ -38,7 +41,7 @@ void GPIO_EVEN_IRQHandler(void)
 {
   // Clear all even pin interrupt flags
   IntFlag=GPIO_IntGet();
-
+  CopyIntFlag=IntFlag;
   while(!GPIO_PinInGet(BUTTON0_PORT, BUTTON0_PIN));
   GPIO_IntClear(IntFlag);
 }
@@ -49,6 +52,7 @@ void GPIO_EVEN_IRQHandler(void)
 void GPIO_ODD_IRQHandler(void)
 {
   IntFlag=GPIO_IntGet();
+  CopyIntFlag=IntFlag;
   while(!GPIO_PinInGet(BUTTON1_PORT, BUTTON1_PIN));
   GPIO_IntClear(IntFlag);
 }
@@ -60,5 +64,81 @@ uint32_t BtnPressedState(void){
   return ret;
 }
 
+uint8_t BtnSetDigit(BUTTON_DIGIT state){
+
+      return IncrementDigit(state);
+
+}
+int8_t GetPressedButton(void){
+  __NVIC_DisableIRQ(GPIO_EVEN_IRQn);
+  __NVIC_DisableIRQ(GPIO_ODD_IRQn);
+  int8_t ret;
+  if(0x4000==CopyIntFlag){
+      CopyIntFlag=0;
+      ret= 0;//button0
+  }else if(0x8000==CopyIntFlag){
+      CopyIntFlag=0;
+      ret= 1;//button1
+  }else{
+      CopyIntFlag=0;
+      ret= -1;
+  }
+
+  NVIC_EnableIRQ(GPIO_EVEN_IRQn);
+  NVIC_EnableIRQ(GPIO_ODD_IRQn);
+  return ret;
+
+}
+uint8_t IncrementDigit(BUTTON_DIGIT state){
+
+  uint8_t currentValue;
+  switch(state){
+    case digit0_InProgress:
+      currentValue=(((RTCC->TIME)&_RTCC_TIME_HOURT_MASK)>>_RTCC_TIME_HOURT_SHIFT);
+      RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_HOURT_MASK));
+      currentValue++;
+      if(currentValue>2)currentValue=0;
+      RTCC->TIME|=(currentValue<<_RTCC_TIME_HOURT_SHIFT);
+      break;
+    case digit1_InProgress:
+      currentValue=(((RTCC->TIME)&_RTCC_TIME_HOURU_MASK)>>_RTCC_TIME_HOURU_SHIFT);
+      RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_HOURU_MASK));
+      currentValue++;
+      if(currentValue>9)currentValue=0;
+      RTCC->TIME|=(currentValue<<_RTCC_TIME_HOURU_SHIFT);
+      break;
+    case digit2_InProgress:
+      currentValue=(((RTCC->TIME)&_RTCC_TIME_MINT_MASK)>>_RTCC_TIME_MINT_SHIFT);
+      RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_MINT_MASK));
+      currentValue++;
+      if(currentValue>5)currentValue=0;
+      RTCC->TIME|=(currentValue<<_RTCC_TIME_MINT_SHIFT);
+      break;
+    case digit3_InProgress:
+      currentValue=(((RTCC->TIME)&_RTCC_TIME_MINU_MASK)>>_RTCC_TIME_MINU_SHIFT);
+      RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_MINU_MASK));
+      currentValue++;
+      if(currentValue>9)currentValue=0;
+      RTCC->TIME|=(currentValue<<_RTCC_TIME_MINU_SHIFT);
+      break;
+  }
 
 
+  BtnShowNumber(state,currentValue);
+  return currentValue;
+
+}
+void BtnShowNumber(uint8_t digit,uint8_t value){
+  if(2<=digit){
+      //need to increment to skip the DOT LEDs since it's the 2nd segment
+      LeDriveMux(digit+1);
+  }else{
+      LeDriveMux(digit);
+  }
+  LeSetLedDirect(value);
+
+}
+void BtnClearBntState(){
+  CopyIntFlag=0;
+  IntFlag=0;
+}
