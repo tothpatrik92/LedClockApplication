@@ -12,6 +12,7 @@
 #include "em_gpio.h"
 #include "debug.h"
 
+volatile uint8_t startReEnableTimer=0;
 volatile static uint32_t IntFlag;
 static uint32_t CopyIntFlag;
 
@@ -36,14 +37,18 @@ void ButInit(uint8_t button0Port,
   GPIO_ExtIntConfig(button1Port, button1Pin, BUTTON1_INT_NUM, 0, 1, true);
 
 }
-
+uint32_t restore;
 void GPIO_EVEN_IRQHandler(void)
 {
   // Clear all even pin interrupt flags
   IntFlag=GPIO_IntGet();
   CopyIntFlag=IntFlag;
-  while(!GPIO_PinInGet(BUTTON0_PORT, BUTTON0_PIN));
+  //while(!GPIO_PinInGet(BUTTON0_PORT, BUTTON0_PIN));
   GPIO_IntClear(IntFlag);
+  __NVIC_DisableIRQ(GPIO_EVEN_IRQn);
+  //restore=GPIO->IEN;
+  //GPIO->IEN=0;
+  startReEnableTimer=1;
 }
 
 /**************************************************************************//**
@@ -53,8 +58,12 @@ void GPIO_ODD_IRQHandler(void)
 {
   IntFlag=GPIO_IntGet();
   CopyIntFlag=IntFlag;
-  while(!GPIO_PinInGet(BUTTON1_PORT, BUTTON1_PIN));
+  //while(!GPIO_PinInGet(BUTTON1_PORT, BUTTON1_PIN));
   GPIO_IntClear(IntFlag);
+  __NVIC_DisableIRQ(GPIO_ODD_IRQn);
+  //GPIO->IEN=0;
+  startReEnableTimer=1;
+
 }
 
 uint32_t BtnPressedState(void){
@@ -73,10 +82,10 @@ int8_t GetPressedButton(void){
   __NVIC_DisableIRQ(GPIO_EVEN_IRQn);
   __NVIC_DisableIRQ(GPIO_ODD_IRQn);
   int8_t ret;
-  if(0x4000==CopyIntFlag){
+  if(0x1==CopyIntFlag){
       CopyIntFlag=0;
       ret= 0;//button0
-  }else if(0x8000==CopyIntFlag){
+  }else if(0x4==CopyIntFlag){
       CopyIntFlag=0;
       ret= 1;//button1
   }else{
@@ -84,8 +93,10 @@ int8_t GetPressedButton(void){
       ret= -1;
   }
 
-  NVIC_EnableIRQ(GPIO_EVEN_IRQn);
-  NVIC_EnableIRQ(GPIO_ODD_IRQn);
+  if(startReEnableTimer!=1){
+      NVIC_EnableIRQ(GPIO_EVEN_IRQn);
+  NVIC_EnableIRQ(GPIO_ODD_IRQn);}
+
   return ret;
 
 }
@@ -146,4 +157,6 @@ void BtnResetSec(void){
 
   RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_SECT_MASK));
   RTCC->TIME=((RTCC->TIME)&(~_RTCC_TIME_SECU_MASK));
+  RTCC->CNT=0;
+  RTCC->PRECNT=0;
 }

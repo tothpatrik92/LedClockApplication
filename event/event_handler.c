@@ -35,7 +35,7 @@ EVENT EventGetAppState(void){
   currTick=EvGetCurrTick();
 
   eventBtn=ButtonPressedState();
-  if(0x4000 == eventBtn){
+  if(0x1 == eventBtn){
       //button 0 is pressed
       ret=event_timer_set;
   }else if(currTick!=prevTick){

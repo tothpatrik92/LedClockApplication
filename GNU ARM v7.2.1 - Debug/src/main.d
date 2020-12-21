@@ -64,6 +64,7 @@ src/main.o: ../src/main.c \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_usart.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_emu.h \
  c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_rtcc.h \
+ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_timer.h \
  ../src/app.h \
  C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\event/event.h \
  C:\Users\patrik\SimplicityStudio\v5_workspace\LedClockApplication\led/led.h \
@@ -203,6 +204,8 @@ c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_emu.h:
 
 c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_rtcc.h:
+
+c:\siliconlabs\simplicitystudio\v5\developer\sdks\gecko_sdk_suite\v3.0\platform\emlib\inc\em_timer.h:
 
 ../src/app.h:
 

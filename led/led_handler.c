@@ -2,13 +2,6 @@
 #include "led.h"
 #include "app.h"
 
-
-
-
-
-
-
-
 void LedInit(void){
 
   LeInitGPIO();

@@ -11,10 +11,10 @@
 #ifndef SRC_BUTTON_H_
 #define SRC_BUTTON_H_
 
-#define BUTTON0_PORT  gpioPortD
-#define BUTTON0_PIN   14
-#define BUTTON1_PORT  gpioPortD
-#define BUTTON1_PIN   15
+#define BUTTON0_PORT  gpioPortK
+#define BUTTON0_PIN   0
+#define BUTTON1_PORT  gpioPortK
+#define BUTTON1_PIN   2
 
 #define BUTTON0_INT_NUM BUTTON0_PIN
 #define BUTTON1_INT_NUM BUTTON1_PIN
